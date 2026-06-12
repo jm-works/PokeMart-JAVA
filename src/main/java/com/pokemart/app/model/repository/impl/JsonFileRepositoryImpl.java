@@ -36,7 +36,7 @@ public abstract class JsonFileRepositoryImpl<T> implements JsonFileRepository<T>
                         (json, typeOfT, ctx) -> LocalDateTime.parse(json.getAsString()))
                 .create();
 
-        File dir = new File("data");
+        File dir = resolveDataDir();
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -120,6 +120,25 @@ public abstract class JsonFileRepositoryImpl<T> implements JsonFileRepository<T>
         boolean removed = all.removeIf(entity -> id.equals(getEntityId(entity)));
         if (removed) {
             writeToFile(all);
+        }
+    }
+
+    private static File resolveDataDir() {
+        try {
+            File jarFile = new File(
+                    JsonFileRepositoryImpl.class.getProtectionDomain()
+                            .getCodeSource().getLocation().toURI());
+            File jarDir = jarFile.isFile() ? jarFile.getParentFile() : jarFile;
+            File candidate = new File(jarDir, "data");
+            if (jarDir.getName().equals("classes") || jarDir.getName().equals("target")) {
+                File projectRoot = jarDir.getName().equals("classes")
+                        ? jarDir.getParentFile().getParentFile()
+                        : jarDir.getParentFile();
+                candidate = new File(projectRoot, "data");
+            }
+            return candidate;
+        } catch (Exception e) {
+            return new File("data");
         }
     }
 

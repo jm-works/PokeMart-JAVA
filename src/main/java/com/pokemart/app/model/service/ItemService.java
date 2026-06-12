@@ -16,7 +16,28 @@ import java.util.Optional;
 public class ItemService {
 
     private final ItemRepository repository;
-    private static final String IMAGES_DIR = "data/images";
+    private static final String IMAGES_DIR = resolveImagesDir();
+
+    private static String resolveImagesDir() {
+        try {
+            java.io.File jarFile = new java.io.File(
+                    ItemService.class.getProtectionDomain()
+                            .getCodeSource().getLocation().toURI());
+            java.io.File jarDir = jarFile.isFile() ? jarFile.getParentFile() : jarFile;
+            java.io.File dataDir;
+            if (jarDir.getName().equals("classes") || jarDir.getName().equals("target")) {
+                java.io.File projectRoot = jarDir.getName().equals("classes")
+                        ? jarDir.getParentFile().getParentFile()
+                        : jarDir.getParentFile();
+                dataDir = new java.io.File(projectRoot, "data/images");
+            } else {
+                dataDir = new java.io.File(jarDir, "data/images");
+            }
+            return dataDir.getAbsolutePath();
+        } catch (Exception e) {
+            return "data/images";
+        }
+    }
 
     public ItemService() {
         this.repository = new ItemRepository();

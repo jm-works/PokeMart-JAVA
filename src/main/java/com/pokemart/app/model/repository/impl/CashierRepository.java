@@ -10,7 +10,27 @@ import java.math.BigDecimal;
 
 public class CashierRepository {
 
-    private static final String PATH = "data/cashier.json";
+    private static final String PATH;
+    static {
+        String resolved = "data/cashier.json";
+        try {
+            java.io.File jarFile = new java.io.File(
+                    CashierRepository.class.getProtectionDomain()
+                            .getCodeSource().getLocation().toURI());
+            java.io.File jarDir = jarFile.isFile() ? jarFile.getParentFile() : jarFile;
+            java.io.File dataDir;
+            if (jarDir.getName().equals("classes") || jarDir.getName().equals("target")) {
+                java.io.File projectRoot = jarDir.getName().equals("classes")
+                        ? jarDir.getParentFile().getParentFile()
+                        : jarDir.getParentFile();
+                dataDir = new java.io.File(projectRoot, "data");
+            } else {
+                dataDir = new java.io.File(jarDir, "data");
+            }
+            resolved = new java.io.File(dataDir, "cashier.json").getAbsolutePath();
+        } catch (Exception ignored) {}
+        PATH = resolved;
+    }
     private final Gson gson = new Gson();
 
     public CashierRepository() {
