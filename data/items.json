@@ -1,0 +1,92 @@
+[
+  {
+    "id": "bd739b55-acb5-482b-aa3a-a1b11c3b9982",
+    "barcode": "101",
+    "name": "Pokeball",
+    "category": "Pokebola",
+    "price": 100,
+    "stock": 1,
+    "imagePath": "pokeball.png"
+  },
+  {
+    "id": "ae0ba812-73d9-46fb-84e1-3ed6c2503c24",
+    "barcode": "102",
+    "name": "GreatBall",
+    "category": "Pokebola",
+    "price": 200,
+    "stock": 1,
+    "imagePath": "greatball.png"
+  },
+  {
+    "id": "58aa195f-e28e-429a-a760-0cd99c5a7d84",
+    "barcode": "103",
+    "name": "UltraBall",
+    "category": "Pokebola",
+    "price": 400,
+    "stock": 1,
+    "imagePath": "ultraball.png"
+  },
+  {
+    "id": "d1733744-ea2e-465a-87ac-71df484a6ae0",
+    "barcode": "201",
+    "name": "Potion",
+    "category": "Potion",
+    "price": 150,
+    "stock": 1,
+    "imagePath": "potion.png"
+  },
+  {
+    "id": "105e1eb7-961c-475e-a84c-6c0f8eb46a86",
+    "barcode": "202",
+    "name": "Super Potion",
+    "category": "Potion",
+    "price": 250,
+    "stock": 1,
+    "imagePath": "super_potion.png"
+  },
+  {
+    "id": "0fba7edb-ddcd-4f6a-87ef-75473e533820",
+    "barcode": "203",
+    "name": "Hyper Potion",
+    "category": "Potion",
+    "price": 400,
+    "stock": 1,
+    "imagePath": "hyper_potion.png"
+  },
+  {
+    "id": "b2d9383f-4d03-4e32-8874-251dde75a67c",
+    "barcode": "204",
+    "name": "Max Potion",
+    "category": "Potion",
+    "price": 700,
+    "stock": 1,
+    "imagePath": "max_potion.png"
+  },
+  {
+    "id": "733f1453-c513-42b0-82e9-07a3d5bb8e88",
+    "barcode": "301",
+    "name": "Revive",
+    "category": "Utils",
+    "price": 1000,
+    "stock": 1,
+    "imagePath": "revive.png"
+  },
+  {
+    "id": "72b0c222-e912-4d1f-b797-e21850035f73",
+    "barcode": "302",
+    "name": "Repel",
+    "category": "Utils",
+    "price": 500,
+    "stock": 1,
+    "imagePath": "repel.png"
+  },
+  {
+    "id": "535ed63f-e75d-42cb-8944-558c29569893",
+    "barcode": "303",
+    "name": "Escape Rope",
+    "category": "Utils",
+    "price": 400,
+    "stock": 1,
+    "imagePath": "escape_rope.png"
+  }
+]
