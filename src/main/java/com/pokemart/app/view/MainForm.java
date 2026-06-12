@@ -38,7 +38,7 @@ public class MainForm extends JFrame {
     public MainForm() {
         totalCaixa = cashierRepository.load();
         setTitle("Poke Mart — Zezin Edition");
-        setSize(1366, 720);
+        setSize(1300, 770);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
