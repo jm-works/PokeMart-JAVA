@@ -20,8 +20,7 @@ public class SaleForm extends JPanel {
 
     @Getter
     private SaleTableModel tableModel;
-    private SaleController controller;
-    private final MainForm mainForm;
+    private final SaleController controller;
 
     private PokeTable table;
     private PokeButton btnRemove;
@@ -33,7 +32,6 @@ public class SaleForm extends JPanel {
     private JLabel lblPreviewStock;
 
     public SaleForm(MainForm mainForm) {
-        this.mainForm = mainForm;
         initComponents();
         this.controller = new SaleController(this, mainForm);
     }

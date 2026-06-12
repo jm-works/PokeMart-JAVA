@@ -18,7 +18,7 @@ import java.io.File;
 public class BuyForm extends JPanel {
 
     @Getter private SaleTableModel tableModel;
-    private BuyController controller;
+    private final BuyController controller;
 
     private PokeTable table;
     private PokeButton btnRemove;
@@ -129,10 +129,10 @@ public class BuyForm extends JPanel {
         bottomPanel.add(lblPreviewImage, "w 70!, h 70!, ay center");
 
         JPanel colInfo = makePreviewCol();
-        lblPreviewName  = makePreviewValue("—");
+        lblPreviewName  = makePreviewValue();
         lblPreviewName.setFont(PokeTheme.getPixelFont(11f));
         lblPreviewName.setForeground(PokeTheme.ACCENT_YELLOW);
-        lblPreviewPrice = makePreviewValue("—");
+        lblPreviewPrice = makePreviewValue();
         lblPreviewPrice.setFont(PokeTheme.getPixelFont(11f));
         lblPreviewPrice.setForeground(PokeTheme.ACCENT_YELLOW);
         colInfo.add(makePreviewKey("ITEM"));    colInfo.add(lblPreviewName);
@@ -140,7 +140,7 @@ public class BuyForm extends JPanel {
         bottomPanel.add(colInfo, "grow, ay center");
 
         JPanel colStock = makePreviewCol();
-        lblPreviewStock = makePreviewValue("—");
+        lblPreviewStock = makePreviewValue();
         colStock.add(makePreviewKey("ESTOQUE")); colStock.add(lblPreviewStock);
         bottomPanel.add(colStock, "grow, ay center");
 
@@ -229,8 +229,8 @@ public class BuyForm extends JPanel {
         return l;
     }
 
-    private JLabel makePreviewValue(String text) {
-        JLabel l = new JLabel(text);
+    private JLabel makePreviewValue() {
+        JLabel l = new JLabel("—");
         l.setFont(PokeTheme.getPixelFont(10f));
         l.setForeground(PokeTheme.TEXT_PRIMARY);
         return l;

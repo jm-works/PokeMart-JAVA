@@ -13,10 +13,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 
-/**
- * Dialog de dados do cliente: CPF (qualquer 11 dígitos), nome e pagamento.
- * Não valida dígitos verificadores — aceita qualquer sequência numérica de 11 chars.
- */
 public class CustomerDialog extends JDialog {
 
     private JTextField txtCpf;
@@ -110,7 +106,7 @@ public class CustomerDialog extends JDialog {
             private String currentDigits(FilterBypass fb) {
                 try {
                     return fb.getDocument().getText(0, fb.getDocument().getLength())
-                            .replaceAll("[^\\d]", "");
+                            .replaceAll("\\D", "");
                 } catch (BadLocationException e) { return ""; }
             }
 
@@ -148,7 +144,7 @@ public class CustomerDialog extends JDialog {
                 String removed = fb.getDocument().getText(offset, length).replaceAll("\\D", "");
                 int removeCount = removed.length();
                 String kept = current.substring(0, Math.max(0, current.length() - removeCount));
-                String digits = kept + text.replaceAll("[^\\d]", "");
+                String digits = kept + text.replaceAll("\\D", "");
                 applyFormatted(fb, digits);
             }
 

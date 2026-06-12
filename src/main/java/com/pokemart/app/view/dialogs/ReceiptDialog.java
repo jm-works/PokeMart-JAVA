@@ -140,14 +140,14 @@ public class ReceiptDialog extends JDialog {
                 sb.append(String.format("%-24s %5s  %10s\n",
                         name,
                         "x" + item.getQuantity(),
-                        "\u20bd " + item.getSubtotal().toPlainString()));
-                sb.append(String.format("  \u20bd %-10s un.\n",
+                        "₽ " + item.getSubtotal().toPlainString()));
+                sb.append(String.format("  ₽ %-10s un.\n",
                         item.getUnitPrice().toPlainString()));
             }
         }
 
         sb.append(thin).append("\n");
-        sb.append(String.format("%-30s \u20bd %s\n", "TOTAL:", entry.getTotal().toPlainString()));
+        sb.append(String.format("%-30s ₽ %s\n", "TOTAL:", entry.getTotal().toPlainString()));
         sb.append(line).append("\n");
         sb.append("\n");
         sb.append(center("Obrigado pela preferencia!")).append("\n");

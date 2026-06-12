@@ -19,8 +19,6 @@ import java.util.Optional;
 
 public class BuyController implements ItemAdder {
 
-    private static final BigDecimal MAX_CAIXA = new BigDecimal("999999");
-
     private final BuyForm view;
     private final MainForm mainForm;
     private final SaleService saleService;

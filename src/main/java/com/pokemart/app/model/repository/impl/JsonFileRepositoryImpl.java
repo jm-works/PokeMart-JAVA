@@ -62,21 +62,13 @@ public abstract class JsonFileRepositoryImpl<T> implements JsonFileRepository<T>
 
     @Override
     public List<T> findAll() {
-        FileReader reader = null;
-        try {
-            reader = new FileReader(file);
+        try (FileReader reader = new FileReader(file)) {
             Type listType = TypeToken.getParameterized(List.class, type).getType();
             List<T> result = gson.fromJson(reader, listType);
             return result != null ? result : new ArrayList<>();
         } catch (Exception e) {
             System.err.println("Erro ao ler JSON: " + e.getMessage());
             return new ArrayList<>();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException ignored) {}
-            }
         }
     }
 
@@ -143,18 +135,10 @@ public abstract class JsonFileRepositoryImpl<T> implements JsonFileRepository<T>
     }
 
     private void writeToFile(List<T> data) {
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(file);
+        try (FileWriter writer = new FileWriter(file)) {
             gson.toJson(data, writer);
         } catch (IOException e) {
             throw new RuntimeException("Erro ao escrever no arquivo JSON", e);
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException ignored) {}
-            }
         }
     }
 
