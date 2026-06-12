@@ -152,16 +152,22 @@ public class ItemForm extends JPanel {
                     if (s[0] < getWidth()) { g2.fillRect(s[0], s[1], 2, 2); }
                 }
 
-                int groundY = getHeight() - 28;
+                int groundY = getHeight() - 18;
                 GradientPaint ground = new GradientPaint(
-                        0, groundY, new Color(0x2a4a2a),
-                        0, getHeight(), new Color(0x1a2a1a));
+                        0, groundY, new Color(0x1a3a1a),
+                        0, getHeight(), new Color(0x0a1a0a));
                 g2.setPaint(ground);
                 g2.fillRect(0, groundY, getWidth(), getHeight() - groundY);
 
-                g2.setColor(new Color(0x44aa44));
-                g2.setStroke(new java.awt.BasicStroke(2f));
+                g2.setColor(new Color(0x3a7a3a));
+                g2.setStroke(new java.awt.BasicStroke(1.5f));
                 g2.drawLine(0, groundY, getWidth(), groundY);
+
+                g2.setColor(new Color(0x2a5a2a));
+                g2.setStroke(new java.awt.BasicStroke(1f));
+                for (int x = 4; x < getWidth(); x += 8) {
+                    g2.drawLine(x, groundY - 2, x + 2, groundY);
+                }
 
                 g2.setColor(PokeTheme.ACCENT_BLUE);
                 g2.fillRect(0, 0, getWidth(), 3);
@@ -260,7 +266,7 @@ public class ItemForm extends JPanel {
                 g2.drawRect(0, 0, getWidth()-1, getHeight()-1);
 
                 String txt = lblPreviewStock.getText().replaceAll("[^0-9]", "");
-                if (!txt.isBlank()) {
+                if (!txt.isBlank() && !lblPreviewStock.getText().equals("---")) {
                     int stock = Integer.parseInt(txt);
                     float ratio = Math.min(1f, stock / 100f);
                     Color barColor = ratio > 0.5f ? PokeTheme.ACCENT_GREEN

@@ -8,6 +8,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -108,14 +110,14 @@ public class ReceiptDialog extends JDialog {
         StringBuilder sb = new StringBuilder();
 
         sb.append(line).append("\n");
-        sb.append(center("POKEMARKET", 44)).append("\n");
-        sb.append(center("-- PALLET TOWN --", 44)).append("\n");
-        sb.append(center("CNPJ: 03.372.437/0001-44", 44)).append("\n");
+        sb.append(center("POKEMART")).append("\n");
+        sb.append(center("-- PALLET TOWN --")).append("\n");
+        sb.append(center("CNPJ: 44.705.141/0001-85")).append("\n");
         sb.append(line).append("\n");
         sb.append("\n");
 
-        String tipo = "SALE".equals(entry.getType()) ? "CUPOM FISCAL" : "REGISTRO DE REMOCAO";
-        sb.append(center(tipo, 44)).append("\n");
+        String tipo = "SALE".equals(entry.getType()) ? "CUPOM FISCAL" : "COMPRA DE ESTOQUE";
+        sb.append(center(tipo)).append("\n");
         sb.append("\n");
 
         sb.append(thin).append("\n");
@@ -134,21 +136,22 @@ public class ReceiptDialog extends JDialog {
         if (entry.getItems() != null) {
             for (SaleHistoryEntry.SaleHistoryItem item : entry.getItems()) {
                 String name = item.getItemName() != null ? item.getItemName() : "—";
-                if (name.length() > 28) name = name.substring(0, 27) + ".";
-                sb.append(name).append("\n");
-                sb.append(String.format("  P %-10s x%-4d  P %s\n",
-                        item.getUnitPrice().toPlainString(),
-                        item.getQuantity(),
-                        item.getSubtotal().toPlainString()));
+                if (name.length() > 24) name = name.substring(0, 23) + ".";
+                sb.append(String.format("%-24s %5s  %10s\n",
+                        name,
+                        "x" + item.getQuantity(),
+                        "\u20bd " + item.getSubtotal().toPlainString()));
+                sb.append(String.format("  \u20bd %-10s un.\n",
+                        item.getUnitPrice().toPlainString()));
             }
         }
 
         sb.append(thin).append("\n");
-        sb.append(String.format("%-30s P %s\n", "TOTAL:", entry.getTotal().toPlainString()));
+        sb.append(String.format("%-30s \u20bd %s\n", "TOTAL:", entry.getTotal().toPlainString()));
         sb.append(line).append("\n");
         sb.append("\n");
-        sb.append(center("Obrigado pela preferencia!", 44)).append("\n");
-        sb.append(center("Volte sempre, Treinador!", 44)).append("\n");
+        sb.append(center("Obrigado pela preferencia!")).append("\n");
+        sb.append(center("Volte sempre, Treinador!")).append("\n");
         sb.append("\n");
         sb.append(line).append("\n");
 
@@ -157,21 +160,37 @@ public class ReceiptDialog extends JDialog {
 
     private void imprimir() {
         PrinterJob job = PrinterJob.getPrinterJob();
-        job.setJobName("Nota Fiscal - PokeMarket");
+        job.setJobName("Nota Fiscal - PokeMart");
+
+        String[] lines = buildReceipt().split("\n");
+        int lineHeight = 14;
+        int marginX    = 20;
+        int marginY    = 20;
+        int pageWidth  = 380;
+        int pageHeight = marginY * 2 + lines.length * lineHeight + 20;
+
+        Paper paper = new Paper();
+        paper.setSize(pageWidth, pageHeight);
+        paper.setImageableArea(marginX, marginY, pageWidth - marginX * 2, pageHeight - marginY * 2);
+
+        PageFormat pf = job.defaultPage();
+        pf.setPaper(paper);
+        pf.setOrientation(PageFormat.PORTRAIT);
+
         job.setPrintable((graphics, pageFormat, pageIndex) -> {
             if (pageIndex > 0) return Printable.NO_SUCH_PAGE;
             Graphics2D g2 = (Graphics2D) graphics;
             g2.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            g2.setFont(new Font("Courier New", Font.PLAIN, 10));
+            g2.setFont(new Font("Courier New", Font.PLAIN, 9));
             g2.setColor(Color.BLACK);
-            String[] lines = buildReceipt().split("\n");
-            int y = 14;
+            int y = lineHeight;
             for (String l : lines) {
                 g2.drawString(l, 0, y);
-                y += 14;
+                y += lineHeight;
             }
             return Printable.PAGE_EXISTS;
-        });
+        }, pf);
+
         if (job.printDialog()) {
             try { job.print(); }
             catch (PrinterException ex) {
@@ -182,15 +201,15 @@ public class ReceiptDialog extends JDialog {
         }
     }
 
-    private static String center(String text, int width) {
-        if (text.length() >= width) return text;
-        int pad = (width - text.length()) / 2;
+    private static String center(String text) {
+        if (text.length() >= 44) return text;
+        int pad = (44 - text.length()) / 2;
         return " ".repeat(pad) + text;
     }
 
     private static String formatCpf(String cpf) {
         if (cpf == null) return "—";
-        String d = cpf.replaceAll("[^\\d]", "");
+        String d = cpf.replaceAll("\\D", "");
         if (d.length() == 11)
             return d.substring(0,3)+"."+d.substring(3,6)+"."+d.substring(6,9)+"-"+d.substring(9);
         return cpf;

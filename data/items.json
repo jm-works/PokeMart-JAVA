@@ -5,7 +5,7 @@
     "name": "Pokeball",
     "category": "Pokebola",
     "price": 100,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "pokeball.png"
   },
   {
@@ -14,7 +14,7 @@
     "name": "GreatBall",
     "category": "Pokebola",
     "price": 200,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "greatball.png"
   },
   {
@@ -23,7 +23,7 @@
     "name": "UltraBall",
     "category": "Pokebola",
     "price": 400,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "ultraball.png"
   },
   {
@@ -32,7 +32,7 @@
     "name": "Potion",
     "category": "Potion",
     "price": 150,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "potion.png"
   },
   {
@@ -41,7 +41,7 @@
     "name": "Super Potion",
     "category": "Potion",
     "price": 250,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "super_potion.png"
   },
   {
@@ -50,7 +50,7 @@
     "name": "Hyper Potion",
     "category": "Potion",
     "price": 400,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "hyper_potion.png"
   },
   {
@@ -59,7 +59,7 @@
     "name": "Max Potion",
     "category": "Potion",
     "price": 700,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "max_potion.png"
   },
   {
@@ -68,7 +68,7 @@
     "name": "Revive",
     "category": "Utils",
     "price": 1000,
-    "stock": 1,
+    "stock": 6,
     "imagePath": "revive.png"
   },
   {
@@ -77,7 +77,7 @@
     "name": "Repel",
     "category": "Utils",
     "price": 500,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "repel.png"
   },
   {
@@ -86,7 +86,7 @@
     "name": "Escape Rope",
     "category": "Utils",
     "price": 400,
-    "stock": 1,
+    "stock": 0,
     "imagePath": "escape_rope.png"
   }
 ]

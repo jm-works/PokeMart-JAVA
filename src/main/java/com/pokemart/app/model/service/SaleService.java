@@ -105,7 +105,7 @@ public class SaleService {
         return historyRepository.findAll();
     }
 
-    public java.math.BigDecimal completePurchase(List<SaleItemDto> purchaseItems) {
+    public java.math.BigDecimal completePurchase(List<com.pokemart.app.model.dto.SaleItemDto> purchaseItems) {
         if (purchaseItems == null || purchaseItems.isEmpty())
             throw new IllegalArgumentException("A compra precisa conter pelo menos um item.");
 
@@ -115,7 +115,7 @@ public class SaleService {
 
         java.math.BigDecimal PURCHASE_FACTOR = new java.math.BigDecimal("0.60");
 
-        for (SaleItemDto dto : purchaseItems) {
+        for (com.pokemart.app.model.dto.SaleItemDto dto : purchaseItems) {
             Item item = catalog.stream()
                     .filter(i -> dto.getBarcode().equals(i.getBarcode()))
                     .findFirst()
@@ -147,16 +147,5 @@ public class SaleService {
         return total;
     }
 
-    public void recordRemoval(Item item, int quantity) {
-        BigDecimal subtotal = item.getPrice().multiply(BigDecimal.valueOf(quantity));
-        historyRepository.save(SaleHistoryEntry.builder()
-                .saleId(null)
-                .type("REMOVAL")
-                .customerCpf("—").customerName("Remoção avulsa").paymentMethod("—")
-                .date(LocalDateTime.now()).total(subtotal)
-                .items(List.of(SaleHistoryEntry.SaleHistoryItem.builder()
-                        .itemId(item.getId()).itemName(item.getName()).barcode(item.getBarcode())
-                        .quantity(quantity).unitPrice(item.getPrice()).subtotal(subtotal).build()))
-                .build());
-    }
+    public void recordRemoval(Item item, int quantity) {}
 }

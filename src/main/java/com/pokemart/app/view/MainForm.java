@@ -37,8 +37,8 @@ public class MainForm extends JFrame {
 
     public MainForm() {
         totalCaixa = cashierRepository.load();
-        setTitle("Poke Mart — Zezin Edition");
-        setSize(1300, 770);
+        setTitle("PokeMart — Zezin Edition");
+        setSize(1280, 770);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -77,9 +77,9 @@ public class MainForm extends JFrame {
                 g2.fillRect(getWidth() - 2, 0, 2, getHeight());
 
                 int cx = getWidth() / 2;
-                int cy = 78;
+                int cy = 65;
                 float pulse = pokeballPulse;
-                int r = (int)(46 + pulse * 4);
+                int r = (int)(36 + pulse * 3);
                 drawPokeball(g2, cx, cy, r, pulse);
 
                 g2.dispose();
@@ -132,19 +132,19 @@ public class MainForm extends JFrame {
         sidebar.setOpaque(false);
         sidebar.setPreferredSize(new Dimension(200, 0));
         sidebar.setLayout(new MigLayout("wrap 1, fillx, insets 0 8 10 8",
-                "[grow, fill]", "158[]4[]5[]5[]5[]5[]18[]5[]push[]10[]"));
+                "[grow, fill]", "130[]6[]8[]5[]5[]5[]5[]18[]5[]push[]10[]"));
 
         JLabel lblTitle = new JLabel("POKE MART", SwingConstants.CENTER);
-        lblTitle.setFont(PokeTheme.getPixelFont(9f));
+        lblTitle.setFont(PokeTheme.getPixelFont(8f));
         lblTitle.setForeground(PokeTheme.ACCENT_YELLOW);
         sidebar.add(lblTitle);
 
         JLabel lblSub = new JLabel("-- PALLET TOWN --", SwingConstants.CENTER);
         lblSub.setFont(PokeTheme.getPixelFont(6f));
         lblSub.setForeground(PokeTheme.ACCENT_BLUE);
-        sidebar.add(lblSub, "gaptop 2");
+        sidebar.add(lblSub, "gaptop 4");
 
-        sidebar.add(makeSeparator());
+        sidebar.add(makeSeparator(), "gaptop 4");
 
         btnProdutos  = new MenuButton("PRODUTOS",  "Gerenciar itens", "BAG");
         btnVendas    = new MenuButton("VENDAS",    "PDV / Registrar", "SHOP");
@@ -398,7 +398,6 @@ public class MainForm extends JFrame {
 
             g2.dispose();
             super.paintComponent(g);
-
 
             Graphics2D g3 = (Graphics2D) g.create();
             g3.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,

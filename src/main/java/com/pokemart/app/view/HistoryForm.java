@@ -222,12 +222,16 @@ public class HistoryForm extends JPanel {
     private void loadHistory(String cpfFilter) {
         try {
             List<SaleHistoryEntry> all = saleService.findAllHistory();
+            all = all.stream()
+                    .filter(e -> !"REMOVAL".equals(e.getType()))
+                    .collect(Collectors.toList());
             if (cpfFilter != null && !cpfFilter.isBlank()) {
                 all = all.stream()
                         .filter(e -> e.getCustomerCpf() != null
                                 && e.getCustomerCpf().contains(cpfFilter))
                         .collect(Collectors.toList());
             }
+
             all.sort((a, b) -> {
                 if (a.getDate() == null || b.getDate() == null) return 0;
                 return b.getDate().compareTo(a.getDate());
