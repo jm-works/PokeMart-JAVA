@@ -320,7 +320,7 @@ public class ItemForm extends JPanel {
         if (lblPreviewStock.getParent() != null) lblPreviewStock.getParent().repaint();
 
         if (item.getImagePath() != null && !item.getImagePath().isBlank()) {
-            File f = resolverImagem(item.getImagePath());
+            File f = PokeTheme.resolveItemImage(item.getImagePath());
             if (f != null) {
                 Image img = new ImageIcon(f.getAbsolutePath())
                         .getImage().getScaledInstance(74, 74, Image.SCALE_SMOOTH);
@@ -343,15 +343,6 @@ public class ItemForm extends JPanel {
         if (lblPreviewStock.getParent() != null) lblPreviewStock.getParent().repaint();
         lblPreviewImage.setIcon(null);
         lblPreviewImage.setText("");
-    }
-
-    private File resolverImagem(String imagePath) {
-        if (imagePath == null || imagePath.isBlank()) return null;
-        File f = new File("data/images/" + imagePath);
-        if (f.exists()) return f;
-        f = new File(imagePath);
-        if (f.exists()) return f;
-        return null;
     }
 
     private void abrirModalEdicao() {

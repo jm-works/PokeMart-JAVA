@@ -55,7 +55,6 @@ public class AddItemDialog extends JDialog {
         JPanel header = new JPanel(new BorderLayout()) {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
-                // Gradiente azul escuro -> azul
                 GradientPaint gp = new GradientPaint(
                         0, 0, PokeTheme.ACCENT_BLUE_DARK,
                         getWidth(), 0, PokeTheme.ACCENT_BLUE);
@@ -307,9 +306,8 @@ public class AddItemDialog extends JDialog {
         lblPreviewStock.setText(item.getStock() + " un.");
 
         if (item.getImagePath() != null && !item.getImagePath().isBlank()) {
-            File f = new File("data/images/" + item.getImagePath());
-            if (!f.exists()) f = new File(item.getImagePath());
-            if (f.exists()) {
+            File f = PokeTheme.resolveItemImage(item.getImagePath());
+            if (f != null) {
                 Image img = new ImageIcon(f.getAbsolutePath())
                         .getImage().getScaledInstance(58, 58, Image.SCALE_SMOOTH);
                 lblPreviewImage.setIcon(new ImageIcon(img));

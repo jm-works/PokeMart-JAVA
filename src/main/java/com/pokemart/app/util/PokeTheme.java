@@ -3,6 +3,7 @@ package com.pokemart.app.util;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.File;
 import java.io.InputStream;
 
 public class PokeTheme {
@@ -20,6 +21,38 @@ public class PokeTheme {
     public static final Color ACCENT_RED_DARK = new Color(0x992222);
     public static final Color ACCENT_GREEN  = new Color(0x44bb44);
     public static final Color ACCENT_GREEN_DARK = new Color(0x228822);
+
+    private static File dataDir;
+
+    public static File getDataDir() {
+        if (dataDir != null) return dataDir;
+        try {
+            File jarFile = new File(
+                    PokeTheme.class.getProtectionDomain()
+                            .getCodeSource().getLocation().toURI());
+            File jarDir = jarFile.isFile() ? jarFile.getParentFile() : jarFile;
+            if (jarDir.getName().equals("classes") || jarDir.getName().equals("target")) {
+                File projectRoot = jarDir.getName().equals("classes")
+                        ? jarDir.getParentFile().getParentFile()
+                        : jarDir.getParentFile();
+                dataDir = new File(projectRoot, "data");
+            } else {
+                dataDir = new File(jarDir, "data");
+            }
+        } catch (Exception e) {
+            dataDir = new File("data");
+        }
+        return dataDir;
+    }
+
+    public static File resolveItemImage(String imagePath) {
+        if (imagePath == null || imagePath.isBlank()) return null;
+        File f = new File(getDataDir(), "images/" + imagePath);
+        if (f.exists()) return f;
+        f = new File(imagePath);
+        if (f.exists()) return f;
+        return null;
+    }
 
     private static Font pixelFont;
 

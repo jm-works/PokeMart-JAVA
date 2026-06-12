@@ -54,7 +54,7 @@ public class SaleForm extends JPanel {
         breadcrumb.add(makeHeaderLabel("›", PokeTheme.ACCENT_BLUE));
         breadcrumb.add(makeHeaderLabel("VENDAS", PokeTheme.TEXT_PRIMARY));
 
-        JLabel lblTitle = new JLabel("PDV — POKEMARKET");
+        JLabel lblTitle = new JLabel("PDV — POKEMART");
         lblTitle.setFont(PokeTheme.getPixelFont(10f));
         lblTitle.setForeground(PokeTheme.ACCENT_YELLOW);
 
@@ -187,7 +187,9 @@ public class SaleForm extends JPanel {
         lblTotal.setText("₽ " + tableModel.getTotal().toPlainString());
     }
 
-    public void limparCampos() {}
+    public void limparCampos() { /* campos agora no dialog */ }
+
+    public void limparCampoBarcode() { /* barcode agora no dialog */ }
 
     public void atualizarPreview(Item item) {
         if (item == null) { limparPreview(); return; }
@@ -196,7 +198,7 @@ public class SaleForm extends JPanel {
         lblPreviewStock.setText(item.getStock() + " un.");
 
         if (item.getImagePath() != null && !item.getImagePath().isBlank()) {
-            File f = resolverImagem(item.getImagePath());
+            File f = PokeTheme.resolveItemImage(item.getImagePath());
             if (f != null) {
                 Image img = new ImageIcon(f.getAbsolutePath())
                         .getImage().getScaledInstance(68, 68, Image.SCALE_SMOOTH);
@@ -216,15 +218,6 @@ public class SaleForm extends JPanel {
         lblPreviewStock.setText("—");
         lblPreviewImage.setIcon(null);
         lblPreviewImage.setText("");
-    }
-
-    private File resolverImagem(String imagePath) {
-        if (imagePath == null || imagePath.isBlank()) return null;
-        File f = new File("data/images/" + imagePath);
-        if (f.exists()) return f;
-        f = new File(imagePath);
-        if (f.exists()) return f;
-        return null;
     }
 
     private JLabel makeHeaderLabel(String text, Color color) {

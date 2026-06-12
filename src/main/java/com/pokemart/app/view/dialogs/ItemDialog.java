@@ -154,22 +154,13 @@ public class ItemDialog extends JDialog {
         txtStock.setText(String.valueOf(item.getStock()));
         currentImagePath = item.getImagePath();
         if (currentImagePath != null && !currentImagePath.isBlank()) {
-            File f = resolverImagem(currentImagePath);
+            File f = PokeTheme.resolveItemImage(currentImagePath);
             if (f != null) {
                 Image img = new ImageIcon(f.getAbsolutePath())
                         .getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH);
                 lblImagePreview.setIcon(new ImageIcon(img));
             }
         }
-    }
-
-    private File resolverImagem(String imagePath) {
-        if (imagePath == null || imagePath.isBlank()) return null;
-        File f = new File("data/images/" + imagePath);
-        if (f.exists()) return f;
-        f = new File(imagePath);
-        if (f.exists()) return f;
-        return null;
     }
 
     private void selecionarImagem() {

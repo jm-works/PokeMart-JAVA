@@ -187,9 +187,8 @@ public class BuyForm extends JPanel {
         lblPreviewStock.setText(item.getStock() + " un.");
 
         if (item.getImagePath() != null && !item.getImagePath().isBlank()) {
-            File f = new File("data/images/" + item.getImagePath());
-            if (!f.exists()) f = new File(item.getImagePath());
-            if (f.exists()) {
+            File f = PokeTheme.resolveItemImage(item.getImagePath());
+            if (f != null) {
                 Image img = new ImageIcon(f.getAbsolutePath())
                         .getImage().getScaledInstance(68, 68, Image.SCALE_SMOOTH);
                 lblPreviewImage.setIcon(new ImageIcon(img));
